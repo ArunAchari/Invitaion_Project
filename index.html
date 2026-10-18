@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sahasra - Pushpa Alankarana Ceremony</title>
+<title>Sahasra's Pushpa Alankarana Ceremony</title>
 
 <style>
 * {
@@ -17,84 +17,91 @@
 body {
     font-family: Georgia, serif;
     background: #fff4df;
-    overflow-x: hidden;
+    color: #54321d;
 }
 
-/* MAIN LAYOUT */
-.invitation {
+/* WELCOME SCREEN */
+#welcomeScreen {
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+    background: linear-gradient(135deg, #fff5dc, #f3c96b, #fff1d0);
+}
+
+#welcomeScreen h1 {
+    color: #9c570e;
+    font-size: clamp(28px, 6vw, 48px);
+    margin-bottom: 18px;
+}
+
+#welcomeScreen p {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+#openButton {
+    background: linear-gradient(135deg, #b87316, #70400c);
+    color: white;
+    border: 2px solid #ffe4a0;
+    padding: 15px 28px;
+    border-radius: 35px;
+    font-size: 17px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px #9c570e55;
+}
+
+#openButton:hover {
+    transform: scale(1.05);
+}
+
+/* INVITATION LAYOUT */
+.invitation {
+    display: none;
     min-height: 100vh;
     min-height: 100dvh;
 }
 
-/* LEFT PHOTO SLIDESHOW */
+/* PHOTO SLIDESHOW */
 .photo-section {
     position: relative;
     width: 50%;
-    min-height: 100vh;
-    min-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
     overflow: hidden;
     background: #321b12;
+    flex-shrink: 0;
 }
-.sahasra-name {
-    font-size: clamp(30px, 3vw, 40px);
-    color: #e63c94;
-    margin-top: -8px;
-    margin-bottom: 15px;
-    font-style: italic;
-    animation: slideIn 1.5s ease both;
-    text-shadow: 0 0 10px #ffd76a;
-}
+
 .photo-section img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
+    background: #321b12;
     opacity: 0;
-    transform: scale(1.1);
-    transition: opacity 1.5s ease-in-out;
+    transform: translateY(-100%);
+    transition: transform 1.2s ease, opacity 1.2s ease;
 }
 
 .photo-section img.active {
     opacity: 1;
-    animation: photoZoom 5s ease-in-out forwards;
+    transform: translateY(0);
+    z-index: 2;
 }
 
-@keyframes photoZoom {
-    from {
-        transform: scale(1.1);
-    }
-    to {
-        transform: scale(1);
-    }
+.photo-section img.leaving {
+    opacity: 0;
+    transform: translateY(100%);
+    z-index: 1;
 }
 
-/* PHOTO DECORATION */
-.photo-section::after {
-    content: "❀";
-    position: absolute;
-    bottom: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 45px;
-    color: #ffe3a0;
-    text-shadow: 0 0 20px gold;
-    animation: flowerGlow 2s infinite alternate;
-    pointer-events: none;
-}
-
-@keyframes flowerGlow {
-    from {
-        text-shadow: 0 0 5px gold;
-    }
-    to {
-        text-shadow: 0 0 25px #ffb700;
-    }
-}
-
-/* RIGHT INVITATION SECTION */
+/* RIGHT INVITATION CONTENT */
 .text-section {
     position: relative;
     width: 50%;
@@ -104,121 +111,66 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 40px 30px;
+    padding: 45px 35px;
+    background: linear-gradient(135deg, #fff9e9, #f6dca5, #fff2d1);
     overflow: hidden;
-    background: linear-gradient(
-        135deg,
-        #fff9e9,
-        #f6dca5,
-        #fff2d1
-    );
-    background-size: 200% 200%;
-    animation: backgroundShine 8s ease infinite;
 }
 
-@keyframes backgroundShine {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-/* GOLDEN BORDER */
 .text-section::before {
     content: "";
     position: absolute;
     inset: 15px;
     border: 2px solid #c28b2d;
     pointer-events: none;
-    animation: borderGlow 3s ease-in-out infinite alternate;
 }
 
-@keyframes borderGlow {
-    from {
-        box-shadow: inset 0 0 5px #e5c477;
-    }
-    to {
-        box-shadow: inset 0 0 25px #d9a441;
-    }
+.text-section > * {
+    max-width: 100%;
+    position: relative;
 }
 
-/* DECORATIONS */
 .decoration {
     color: #bd812b;
     font-size: 28px;
     margin-bottom: 18px;
-    animation: floatDecoration 3s ease-in-out infinite;
 }
 
-@keyframes floatDecoration {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-8px);
-    }
-}
-
-/* INVITATION TEXT */
 .subtitle {
     color: #92501c;
     font-family: Arial, sans-serif;
-    font-size: 14px;
-    letter-spacing: 3px;
-    margin-bottom: 18px;
-    animation: slideIn 1s ease both;
-}
-
-.name {
-    font-size: clamp(40px, 5vw, 72px);
-    color: #9c570e;
+    font-size: 13px;
+    letter-spacing: 2px;
     margin-bottom: 15px;
-    overflow-wrap: anywhere;
-    animation: nameReveal 1.5s ease both,
-               nameGlow 2.5s infinite alternate;
-}
-
-@keyframes nameReveal {
-    from {
-        opacity: 0;
-        transform: translateY(30px) scale(.85);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes nameGlow {
-    from {
-        text-shadow: 0 0 4px #f8d88a;
-    }
-    to {
-        text-shadow: 0 0 22px #e9b94d,
-                     0 0 35px #fff0b5;
-    }
-}
-
-.title {
-    color: #572d17;
-    font-size: clamp(22px, 3vw, 34px);
-    margin-bottom: 18px;
-    animation: slideIn 1.3s ease both;
 }
 
 .message {
-    max-width: 500px;
+    max-width: 480px;
     color: #543b2a;
     font-family: Arial, sans-serif;
     font-size: 15px;
     line-height: 1.7;
     margin-bottom: 18px;
-    animation: slideIn 1.6s ease both;
+}
+
+.name {
+    color: #9c570e;
+    font-size: clamp(32px, 4vw, 58px);
+    margin-bottom: 10px;
+    overflow-wrap: anywhere;
+}
+
+.sahasra-name {
+    color: #e63c94;
+    font-size: clamp(32px, 4vw, 45px);
+    font-style: italic;
+    margin-bottom: 15px;
+    overflow-wrap: anywhere;
+}
+
+.title {
+    color: #572d17;
+    font-size: clamp(21px, 2.5vw, 32px);
+    margin-bottom: 18px;
 }
 
 .details {
@@ -227,26 +179,23 @@ body {
     font-size: 14px;
     line-height: 1.8;
     margin-bottom: 18px;
-    animation: slideIn 1.9s ease both;
-}
-
-.details p {
-    margin-bottom: 6px;
     overflow-wrap: anywhere;
 }
 
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.details p {
+    margin-bottom: 7px;
 }
 
-/* MUSIC BUTTON */
+.lunch {
+    display: inline-block;
+    padding: 8px 18px;
+    margin: 5px 0 18px;
+    border-radius: 25px;
+    background: #f3d08b;
+    color: #75421d;
+    font-weight: bold;
+}
+
 .music-button {
     padding: 12px 24px;
     border: 1px solid #fff0bc;
@@ -255,41 +204,10 @@ body {
     color: white;
     font-size: 15px;
     cursor: pointer;
-    box-shadow: 0 5px 18px #b8731655;
-    transition: transform .3s, box-shadow .3s;
     margin-bottom: 15px;
 }
 
-.music-button:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 25px #d8a640;
-}
-
-/* FLOATING PETALS */
-.petal {
-    position: fixed;
-    top: -30px;
-    z-index: 5;
-    color: #d69c37;
-    pointer-events: none;
-    animation: petalFall linear forwards;
-}
-
-@keyframes petalFall {
-    0% {
-        transform: translateY(-20px) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: .9;
-    }
-    100% {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-/* TABLET AND MOBILE */
+/* MOBILE RESPONSIVE */
 @media (max-width: 700px) {
     .invitation {
         flex-direction: column;
@@ -297,9 +215,9 @@ body {
 
     .photo-section {
         width: 100%;
-        height: 45vh;
-        min-height: 300px;
-        min-height: 45dvh;
+        height: 65vh;
+        height: 65dvh;
+        min-height: 350px;
     }
 
     .text-section {
@@ -312,36 +230,25 @@ body {
         inset: 10px;
     }
 
-    .subtitle {
-        font-size: 12px;
-        letter-spacing: 2px;
+    .name {
+        font-size: 38px;
     }
 
-    .name {
-        font-size: 48px;
+    .sahasra-name {
+        font-size: 34px;
     }
 
     .title {
         font-size: 25px;
     }
-
-    .message {
-        font-size: 15px;
-    }
-
-    .details {
-        font-size: 14px;
-    }
 }
 
-/* REDUCE ANIMATION IF REQUESTED BY DEVICE */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
     *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+        animation: none !important;
+        transition: none !important;
     }
 }
 </style>
@@ -349,20 +256,37 @@ body {
 
 <body>
 
-<div class="invitation">
+<!-- WELCOME SCREEN -->
+<div id="welcomeScreen">
+    <div class="decoration">✦ ❀ ✦</div>
 
-    <!-- LEFT SIDE: PHOTO SLIDESHOW -->
+    <h1>Sahasra's Ceremony</h1>
+
+    <p>With love and blessings from Amaravathi Family</p>
+
+    <button id="openButton" onclick="openInvitation()">
+        Open Invitation 🎵
+    </button>
+</div>
+
+<!-- MUSIC -->
+<audio id="backgroundMusic" src="music.mp3" loop preload="auto"></audio>
+
+<!-- MAIN INVITATION -->
+<div class="invitation" id="invitation">
+
+    <!-- PHOTOS -->
     <div class="photo-section">
-       <img src="photo1.jpeg" class="active" alt="Sahasra photo 1">
-<img src="photo2.jpeg" alt="Sahasra photo 2">
-<img src="photo3.jpeg" alt="Sahasra photo 3">
-<img src="photo4.jpeg" alt="Sahasra photo 4">
-<img src="photo5.jpeg" alt="Sahasra photo 5">
-<img src="photo6.jpeg" alt="Sahasra photo 6">
-<img src="photo7.jpeg" alt="Sahasra photo 7"></div>
+        <img src="photo1.jpeg" class="active" alt="Sahasra photo 1">
+        <img src="photo2.jpeg" alt="Sahasra photo 2">
+        <img src="photo3.jpeg" alt="Sahasra photo 3">
+        <img src="photo4.jpeg" alt="Sahasra photo 4">
+        <img src="photo5.jpeg" alt="Sahasra photo 5">
+        <img src="photo6.jpeg" alt="Sahasra photo 6">
+        <img src="photo7.jpeg" alt="Sahasra photo 7">
+    </div>
 
-
-    <!-- RIGHT SIDE: ENGLISH INVITATION -->
+    <!-- INVITATION TEXT -->
     <div class="text-section">
 
         <div class="decoration">✦ ❀ ✦</div>
@@ -374,11 +298,10 @@ body {
         </p>
 
         <h1 class="name">Amaravathi <i>Family</i></h1>
-        <h2 class="sahasra-name">SAHASRA'S</h2>
 
-        <h2 class="title">
-            Half Saree Ceremony
-        </h2>
+        <h2 class="sahasra-name">Sahasra's</h2>
+
+        <h2 class="title">Pushpa Alankarana Ceremony</h2>
 
         <p class="message">
             We warmly invite you to join us for this
@@ -388,10 +311,8 @@ body {
 
         <div class="details">
             <p>📅 <strong>Date:</strong> Thursday, 22 October 2026</p>
-
             <p>🕙 <strong>Time:</strong> 10:00 AM onwards</p>
-
-            <p>🌸 <strong>Occasion:</strong> Half saree Ceremony</p>
+            <p>🌸 <strong>Occasion:</strong> Pushpa Alankarana Ceremony</p>
 
             <p>
                 📍 <strong>Venue:</strong><br>
@@ -401,82 +322,99 @@ body {
 
             <p>
                 <strong>Landmark:</strong><br>
-               Above C.N.R. Handlooms,<br>
-               
-                 Near Tenali Flyover, Mangalagiri Bypass.
-                
+                Above C.N.R. Handlooms,<br>
+                Near Tenali Flyover,<br>
+                Mangalagiri Bypass
             </p>
+        </div>
 
+        <div class="lunch">
+            Lunch: 12:00 PM onwards
         </div>
 
         <p class="message">
             Your presence and blessings will make
-            this special day memorable.
-            We look forward to celebrating with you!
+            our celebration more special!
         </p>
 
         <div class="decoration">❀ You Are Welcome ❀</div>
 
-        <button class="music-button" id="musicButton">
-            Play Music ♪
+        <button class="music-button" id="musicButton"
+                onclick="toggleMusic()">
+            Pause Music ❚❚
         </button>
-
-        <audio id="backgroundMusic" src="music.mp3" loop></audio>
 
     </div>
 </div>
 
 <script>
-// AUTOMATIC PHOTO SLIDESHOW
-const photos = document.querySelectorAll(".photo-section img");
-let currentIndex = 0;
-
-setInterval(function () {
-    photos[currentIndex].classList.remove("active");
-
-    currentIndex = (currentIndex + 1) % photos.length;
-
-    photos[currentIndex].classList.add("active");
-}, 5000);
-
-// FLOATING GOLDEN FLOWERS AND SPARKLES
-function createPetal() {
-    const petal = document.createElement("span");
-
-    petal.className = "petal";
-    petal.textContent = Math.random() > 0.5 ? "✦" : "❀";
-
-    petal.style.left = Math.random() * 100 + "vw";
-    petal.style.fontSize = (12 + Math.random() * 18) + "px";
-    petal.style.animationDuration = (5 + Math.random() * 5) + "s";
-
-    document.body.appendChild(petal);
-
-    setTimeout(function () {
-        petal.remove();
-    }, 10000);
-}
-
-setInterval(createPetal, 700);
-
-// BACKGROUND MUSIC BUTTON
+const welcomeScreen = document.getElementById("welcomeScreen");
+const invitation = document.getElementById("invitation");
 const music = document.getElementById("backgroundMusic");
 const musicButton = document.getElementById("musicButton");
 
-musicButton.addEventListener("click", function () {
+async function openInvitation() {
+    try {
+        // Play music after the user's click
+        await music.play();
+
+        welcomeScreen.style.display = "none";
+        invitation.style.display = "flex";
+
+        startSlideshow();
+    } catch (error) {
+        // Show the invitation even if music cannot start
+        welcomeScreen.style.display = "none";
+        invitation.style.display = "flex";
+
+        startSlideshow();
+
+        alert("Invitation opened. Tap Play Music to start the song.");
+    }
+}
+
+function toggleMusic() {
     if (music.paused) {
         music.play()
             .then(function () {
                 musicButton.textContent = "Pause Music ❚❚";
             })
             .catch(function () {
-                alert("Please check that music.mp3 exists in your project folder.");
+                alert("Please check that music.mp3 exists in your repository.");
             });
     } else {
         music.pause();
         musicButton.textContent = "Play Music ♪";
     }
-});
+}
+
+/* TOP-TO-BOTTOM PHOTO SLIDESHOW */
+const photos = document.querySelectorAll(".photo-section img");
+let currentIndex = 0;
+let slideshowStarted = false;
+
+function startSlideshow() {
+    if (slideshowStarted) return;
+    slideshowStarted = true;
+
+    setInterval(function () {
+        const currentPhoto = photos[currentIndex];
+        const nextIndex = (currentIndex + 1) % photos.length;
+        const nextPhoto = photos[nextIndex];
+
+        currentPhoto.classList.remove("active");
+        currentPhoto.classList.add("leaving");
+
+        nextPhoto.classList.remove("leaving");
+        nextPhoto.classList.add("active");
+
+        setTimeout(function () {
+            currentPhoto.classList.remove("leaving");
+        }, 1300);
+
+        currentIndex = nextIndex;
+    }, 5000);
+}
 </script>
 
 </body>
